@@ -25,6 +25,7 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]){
                 sh 'pip install -r requirements.txt --user'
+                sh 'python --version'
                 sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
             }
             }
