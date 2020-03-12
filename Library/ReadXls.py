@@ -3,11 +3,11 @@ from collections import namedtuple
 
 class ReadXls:
     def __init__(self,filename):
-        #data_only=True代表連formula也是計算後的結果值
+        #data_only=True means formula is calculate result
         self.wb = load_workbook(filename = filename,data_only=True) 
 
     def fieldTitle(self,sheetName,rowPoisition):
-        """取得欄位名稱"""
+        """get field Name"""
         ws = self.wb[sheetName]
         rowObj = []
         for row in ws.iter_rows(min_row=rowPoisition, max_col=ws.max_column, max_row=rowPoisition): 
@@ -15,7 +15,7 @@ class ReadXls:
         return rowObj
 
     def getSheetData(self,sheetName,startRow = 3,endcol = 0):
-        """取得指定資料表的內容"""
+        """get data by specified sheetname"""
         ws = self.wb[sheetName]
         rows = []
         for row in ws.iter_rows(min_row=startRow, max_col=endcol, max_row=ws.max_row): 
@@ -29,7 +29,7 @@ class ReadXls:
         #         print(cell.value)
 
     def getSheetNames(self,NotIn = [] ):
-        """取得工作表名稱"""
+        """get all sheet Names"""
         return [sheetName for sheetName in self.wb.sheetnames if sheetName not in NotIn]
 
     def GetRows(self,sheetName,titles,startRow = 4):    
