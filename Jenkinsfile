@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pip install -r requirements.txt'
+                sh 'sudo pip install -r requirements.txt'
                 sh 'python -m py_compile Library/ReadXls.py' 
             }
         }
