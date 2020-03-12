@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'sudo pip install -r requirements.txt'
+                sh 'sudo pip install openpyxl'
                 sh 'python -m py_compile Library/ReadXls.py' 
             }
         }
