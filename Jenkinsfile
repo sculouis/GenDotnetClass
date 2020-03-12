@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'python -m py_compile src/Library/ReadXls.py' 
+                sh 'python -m py_compile Library/ReadXls.py' 
             }
         }
 	  stage('Test') {
