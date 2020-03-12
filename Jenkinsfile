@@ -23,9 +23,9 @@ pipeline {
                 }
             }
             steps {
-                    withEnv(["HOME=${env.WORKSPACE}"]){
+                withEnv(["HOME=${env.WORKSPACE}"]){
                 sh 'pip install -r requirements.txt --user'
-                sh 'py.test --verbose --junit-xml test-reports/results.xml tests/test_readxls.py'
+                sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
             }
             }
             post {
