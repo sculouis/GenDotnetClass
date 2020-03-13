@@ -2,7 +2,7 @@ import pytest
 from Library.ReadXls import ReadXls 
 from Library.GenCshapeClass import GenCshapeClass
 
-class TestGenClass:
+class TestGen:
     xlsObj = ReadXls(filename = 'templates/tableStructure.xlsx')    
 
     def test_genClass(self):
