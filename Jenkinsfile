@@ -25,7 +25,7 @@ pipeline {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh 'pip list'
                     sh 'echo $PATH'
-                    sh 'python -m pytest'
+                    sh 'python -m pytest -v -s'
                 }
             }
         }
