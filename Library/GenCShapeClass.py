@@ -3,7 +3,6 @@ from mako.lookup import TemplateLookup
 import os
 
 class GenCshapeClass:
-
     def __init__(self,templateDir = 'templates',TableName = ''):
         """設定template的目錄"""
         self.TableName = TableName
