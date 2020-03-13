@@ -5,9 +5,9 @@ namespace MyNameSpace
     {
         % for row in mapRows:
         /// <summary>
-        /// ${row['fieldDesc'].decode()}
+        /// ${row['localName'].decode()}
         /// </summary>
-        public ${row['fieldType']} ${row['columnName']} { get; set; }
+        public ${row['type']} ${row['fieldName']} { get; set; }
         
         % endfor
     }
