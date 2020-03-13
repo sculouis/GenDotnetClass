@@ -24,6 +24,7 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh 'pip list'
+                    sh 'echo $PATH'
                     // sh 'pytest -v -s tests/test_readxls.py --user'
                 }
             }
