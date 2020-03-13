@@ -27,7 +27,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                    sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
+                    sh 'py.test -v -s tests/test_readxls.py'
             }
         }
     }
