@@ -14,26 +14,26 @@ pipeline {
                     sh 'pip list'
                 }
             }
-            stage('Build') {
-                steps {
-                    sh 'python -m py_compile Library/ReadXls.py'
-                }
-                post {
-                    cleanup {
-                        cleanWs()
-                    }
+        }
+        stage('Build') {
+            steps {
+                sh 'python -m py_compile Library/ReadXls.py'
+            }
+            post {
+                cleanup {
+                    cleanWs()
                 }
             }
-            stage('Test') {
-                steps {
-                    withEnv(["HOME=${env.WORKSPACE}"]) {
-                        sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
-                    }
+        }
+        stage('Test') {
+            steps {
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
                 }
-                post {
-                    always {
-                        junit 'test-reports/results.xml'
-                    }
+            }
+            post {
+                always {
+                    junit 'test-reports/results.xml'
                 }
             }
         }
