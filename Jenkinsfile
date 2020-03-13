@@ -29,11 +29,6 @@ pipeline {
             steps {
                     sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
             }
-            post {
-                always {
-                    junit 'test-reports/results.xml'
-                }
-            }
         }
     }
 }
