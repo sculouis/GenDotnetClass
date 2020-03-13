@@ -1,6 +1,9 @@
 from mako.template import Template
 from mako.lookup import TemplateLookup
 import os
+import os.path
+from os import path
+
 
 class GenCshape:
     def __init__(self,templateDir = 'templates',TableName = ''):
@@ -29,5 +32,7 @@ class GenCshape:
     def GenCSFile(self,maprows):
         self.RenderCS("CshapeTemplate.mako", maprows)
         fileName = f"CsClass/{self.TableName}.cs"
+        if (not path.exists("CsClass")):
+            os.mkdir("CsClass")      
         self.DelFile(fileName)
         self.Save(fileName)
