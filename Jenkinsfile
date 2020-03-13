@@ -27,9 +27,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh 'py.test -v -s --junit-xml test-reports/results.xml tests/test_readxls.py'
-                }
             }
             post {
                 always {
