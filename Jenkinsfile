@@ -27,7 +27,9 @@ pipeline {
         }
         stage('Test') {
             steps {
-                    sh 'pytest -v -s tests/test_readxls.py'
+                withEnv(["HOME=${env.WORKSPACE}"]) {
+                    sh 'pytest -v -s tests/test_readxls.py --user'
+                }
             }
         }
     }
