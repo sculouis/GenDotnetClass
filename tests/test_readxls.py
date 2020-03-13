@@ -24,7 +24,8 @@ class TestXls:
         print(self.xlsObj.fieldTitle('FormMaster',3))
 
     def test_getRows(self):
-        for name in self.xlsObj.getSheetNames(['Index']):
-            print(f"sheet name:{name}")
-            for field in self.xlsObj.GetRows('FormMaster',self.xlsObj.fieldTitle(name,3)):
+        for sheetName in self.xlsObj.getSheetNames(['Index']):
+            print(f"sheet name:{sheetName}")
+            fieldTitles = self.xlsObj.fieldTitle(sheetName,3)
+            for field in self.xlsObj.GetRows(sheetName,fieldTitles):
                 print(field)

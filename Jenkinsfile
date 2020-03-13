@@ -24,6 +24,7 @@ pipeline {
             steps {
                 withEnv(["HOME=${env.WORKSPACE}"]) {
                     sh 'python -m pytest -v -s'
+                    sh 'cat CsClass/FormMaster.cs'
                 }
             }
         }

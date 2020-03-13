@@ -1,30 +1,34 @@
+from mako.template import Template
+from mako.lookup import TemplateLookup
 import os
 
-def DelFile(fileName=''):            
-    fileName = f"csclass/{fileName}.cs"
-    if os.path.exists(fileName):
-        os.remove(fileName)
+class GenCshapeClass:
 
-def GenCSFile(name,myrows):
-    for row in myrows:
-        row['fieldType'] = "string" if (row['fieldType'] == 'varchar' or row['fieldType'] == 'nvarchar') else row['fieldType']
-        row['fieldType'] = "Guid" if (row['fieldType'] == 'uniqueidentifier') else row['fieldType']
-        row['fieldType'] = "bool" if (row['fieldType'] == 'bit') else row['fieldType']
-        row['fieldType'] = "int64" if (row['fieldType'] == 'bigint') else row['fieldType']
-    sqlObj.GetClassCS("ClassTemplate.mako", myrows)
-    fileName = f"csclass/{name}.cs"
-    sqlObj.Save(fileName)
+    def __init__(self,templateDir = 'templates',TableName = ''):
+        """設定template的目錄"""
+        self.TableName = TableName
+        self.mylookup = TemplateLookup(directories=[templateDir], input_encoding='utf-8', encoding_errors='replace')
+        self.ClassResult = ""
+        
+    def RenderCS(self,tempFileName = "CshapeTemplate.mako",data=[]):
+        """設定template的檔案 
+           設定寫入版型的變數 
+        """
+        mytemplate = self.mylookup.get_template(tempFileName)
+        self.ClassResult = mytemplate.render(TableName = self.TableName,mapRows=data)
 
-def Main():
-    dbObj = ReadDB()
-    (tableNames,rows) = dbObj.GetTableNamesAndSchema()
-    for name in tableNames:
-        print(name)
-        # Cs檔案存在就刪除
-        DelFile(name)
-        #查回只屬於這個Table的資料欄位結構
-        myrows = list(filter(lambda row: row['tableName'] == name,rows))
-        GenCSFile(name,myrows)
+    def DelFile(self,fileName=''):            
+        if os.path.exists(fileName):
+            os.remove(fileName)
 
-if __name__ == '__main__':
-    Main()
+    def Save(self,fileName = "docs/result.txt"):
+        """設定存檔的檔名"""
+        f= open(fileName,"a+")
+        f.write(self.ClassResult)
+        f.close()
+
+    def GenCSFile(self,maprows):
+        self.RenderCS("CshapeTemplate.mako", maprows)
+        fileName = f"CsClass/{self.TableName}.cs"
+        self.DelFile(fileName)
+        self.Save(fileName)

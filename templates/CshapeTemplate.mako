@@ -5,9 +5,13 @@ namespace MyNameSpace
     {
         % for row in mapRows:
         /// <summary>
-        /// ${row['localName'].decode()}
+        /// ${row.localFieldName}
         /// </summary>
-        public ${row['type']} ${row['fieldName']} { get; set; }
+        % if (row.type == 'varchar') or (row.type == 'nvarchar'):
+        public string ${row.fieldName} { get; set; }
+        % else:
+        public ${row.type} ${row.fieldName} { get; set; }
+        % endif
         
         % endfor
     }
