@@ -34,6 +34,7 @@ class ReadXls:
         return [sheetName for sheetName in self.wb.sheetnames if sheetName not in NotIn]
 
     def GetRows(self,sheetName,startRow = 4):
+        """get row data by sheetName and fieldname"""
         titles = self.fieldTitle(sheetName,3)   #取得欄位名稱    
         colLen = len(titles)
         rows = self.getSheetData(sheetName,startRow,colLen)
