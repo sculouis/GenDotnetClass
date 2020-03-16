@@ -6,33 +6,39 @@ from os import path
 
 
 class GenCshape:
-    def __init__(self,templateDir = 'templates',TableName = ''):
+    def __init__(self,config):
         """設定template的目錄"""
-        self.TableName = TableName
+        self.config = config
+        templateDir = self.config.get('templateDir')
+        self.classDir = self.config.get('classDir')
+        self.tableName = ""
+        self.fileName = ""
         self.mylookup = TemplateLookup(directories=[templateDir], input_encoding='utf-8', encoding_errors='replace')
         self.ClassResult = ""
         
-    def RenderCS(self,tempFileName = "CshapeTemplate.mako",data=[]):
+    def RenderCS(self,data=[]):
         """設定template的檔案 
            設定寫入版型的變數 
         """
+        tempFileName = self.config.get('tempFileName')
         mytemplate = self.mylookup.get_template(tempFileName)
-        self.ClassResult = mytemplate.render(TableName = self.TableName,mapRows=data)
+        self.ClassResult = mytemplate.render(TableName = self.tableName,mapRows=data)
 
-    def DelFile(self,fileName=''):            
-        if os.path.exists(fileName):
-            os.remove(fileName)
+    def DelFile(self):            
+        if os.path.exists(self.fileName):
+            os.remove(self.fileName)
 
-    def Save(self,fileName = "docs/result.txt"):
+    def Save(self):
         """設定存檔的檔名"""
-        f= open(fileName,"a+")
+        f= open(self.fileName,"a+")
         f.write(self.ClassResult)
         f.close()
 
-    def GenCSFile(self,maprows):
-        self.RenderCS("CshapeTemplate.mako", maprows)
-        fileName = f"CsClass/{self.TableName}.cs"
-        if (not path.exists("CsClass")):
-            os.mkdir("CsClass")      
-        self.DelFile(fileName)
-        self.Save(fileName)
+    def GenCSFile(self,tableName,maprows):
+        self.tableName = tableName
+        self.RenderCS(maprows)
+        self.fileName = f"{self.classDir}/{self.tableName}.cs"
+        if (not path.exists(self.classDir)):
+            os.mkdir(self.classDir)      
+        self.DelFile()
+        self.Save()

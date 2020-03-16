@@ -2,9 +2,10 @@ from openpyxl import load_workbook
 from collections import namedtuple
 
 class ReadXls:
-    def __init__(self,filename):
+    def __init__(self,config):
         #data_only=True means formula is calculate result
-        self.wb = load_workbook(filename = filename,data_only=True) 
+        self.filename = config.get('filename')
+        self.wb = load_workbook(filename = self.filename,data_only=True) 
 
     def fieldTitle(self,sheetName,rowPoisition):
         """get field Name"""
@@ -28,11 +29,12 @@ class ReadXls:
         #     for cell in row:
         #         print(cell.value)
 
-    def getSheetNames(self,NotIn = [] ):
+    def getSheetNames(self,NotIn = ['Index'] ):
         """get all sheet Names"""
         return [sheetName for sheetName in self.wb.sheetnames if sheetName not in NotIn]
 
-    def GetRows(self,sheetName,titles,startRow = 4):    
+    def GetRows(self,sheetName,startRow = 4):
+        titles = self.fieldTitle(sheetName,3)   #取得欄位名稱    
         colLen = len(titles)
         rows = self.getSheetData(sheetName,startRow,colLen)
         mapRows = []

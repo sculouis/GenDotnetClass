@@ -6,7 +6,7 @@ namespace MyNameSpace
         % for row in mapRows:
         /// <summary>
         /// ${row.localFieldName}
-        /// </summary>
+        /// </summary> 
         % if (row.type == 'varchar') or (row.type == 'nvarchar'):
         public string ${row.fieldName} { get; set; }
         % else:
