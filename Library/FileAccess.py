@@ -1,12 +1,21 @@
 import os
 from os import listdir
 from os.path import isfile, isdir, join
-import pathlib
 
-class ReadFile:
+class FileAccess:
 
     def __init__(self,config):
         self.config = config
+
+    def DelFile(self,fileName):            
+        if os.path.exists(fileName):
+            os.remove(fileName)
+
+    def Save(self,fileName,content):
+        """設定存檔的檔名"""
+        f= open(fileName,"a+")
+        f.write(content)
+        f.close()
 
     def showFilesContent(self):    
         # os.chdir("..")
@@ -24,13 +33,8 @@ class ReadFile:
                 for line in log:
                     print(line)
             elif isdir(fullpath):
-                print("目錄：", f)  
-    
-    def hello_world(self):
-        print(os.path.abspath(os.curdir))
-        os.chdir("..")
-        print(os.path.abspath(os.curdir))
+                print("目錄：", f)      
 
 if __name__ == "__main__":
-    readFile = ReadFile()
+    readFile = FileAccess()
     readFile.test_showDetail()
