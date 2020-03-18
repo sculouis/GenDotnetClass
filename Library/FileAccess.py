@@ -13,7 +13,7 @@ class FileAccess:
 
     def Save(self,fileName,content):
         """設定存檔的檔名"""
-        f= open(fileName,"a+")
+        f= open(fileName,"w+")
         f.write(content)
         f.close()
 

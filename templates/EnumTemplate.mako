@@ -1,10 +1,12 @@
 using System;
 namespace MyNameSpace
 {
-    public enum ${fieldName} 
+    % for item in enumDicts:
+    public enum ${item['fieldName']} 
     {
-        % for key,value in enumDicts.items():
-        ${key} = ${value}
+        % for key,value in item['enumDict'].items():
+        ${key} = ${value},
         % endfor
     }
+    % endfor
 }
