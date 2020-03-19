@@ -10,6 +10,7 @@ class TestGen:
             "filename": "templates/tableStructure.xlsx",
             "templateDir": "templates",
             "tempFileName": "CshapeTemplate.mako",
+            "dbTempFileName":"DbContentTemplate.mako",
             "tempEnumFileName": "EnumTemplate.mako",
             "classDir":"CsClass"            
         })

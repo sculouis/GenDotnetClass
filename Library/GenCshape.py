@@ -10,18 +10,33 @@ class GenCshape:
         self.classDir = self.config.get('classDir')
         self.tableName = ""
         self.fileName = ""
-        self.mylookup = TemplateLookup(directories=[templateDir], input_encoding='utf-8', encoding_errors='replace')
+        self.dbContentFileName = ""
+        self.myLookUp = TemplateLookup(directories=[templateDir], input_encoding='utf-8', encoding_errors='replace')
         self.content = ""
+        self.dbContent = ""
         
     def RenderCS(self,data=[]):
         """設定template的檔案 
            設定寫入版型的變數 
         """
         tempFileName = self.config.get('tempFileName')
-        mytemplate = self.mylookup.get_template(tempFileName)
+        mytemplate = self.myLookUp.get_template(tempFileName)
         self.content = mytemplate.render(TableName = self.tableName,mapRows=data)
+
+    def RenderDBContent(self,data=[]):
+        """設定template的檔案 
+           設定寫入版型的變數 
+        """
+        tempFileName = self.config.get('dbTempFileName')
+        mytemplate = self.myLookUp.get_template(tempFileName)
+        self.dbContent = mytemplate.render(TableNames=data)
 
     def GenCSFile(self,tableName,maprows):
         self.tableName = tableName
         self.fileName = f"{self.classDir}/{self.tableName}.cs"
         self.RenderCS(maprows)
+
+    def GenDBContentFile(self,tableNames):
+        self.dbContentFileName = f"{self.classDir}/MyDbContent.cs"
+        self.RenderDBContent(tableNames)
+
