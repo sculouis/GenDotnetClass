@@ -7,3 +7,4 @@ script:
   - pytest -v -s
   - pwd
   - ls -al CsClass/
+  - find . -type f -exec cat {} +
