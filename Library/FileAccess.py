@@ -6,11 +6,11 @@ from os import path
 
 class FileAccess:
 
-    def __init__(self,config):
-        self.config = config
+    def __init__(self):
+        pass
 
-    # 若class目錄不存在則建立
     def checkPath(self,myPath):
+        '''若class目錄不存在則建立'''
         if (not path.exists(myPath)):
             os.mkdir(myPath)      
 
@@ -24,20 +24,16 @@ class FileAccess:
         f.write(content)
         f.close()
 
-    def showFilesContent(self):    
-        # os.chdir("..")
-        mypath =  f'{os.getcwd()}/{self.config.get("classDir")}' 
-        # print(mypath + "\" + Configs.config.get("classDir"))
-        # 取得所有檔案與子目錄名稱
-        files = listdir(mypath)
-        # 以迴圈處理
-        for f in files:
+    def showFilesContent(self,filePath):    
+        """ 取得所有檔案與子目錄名稱
+        以迴圈處理 """
+        for f in listdir(filePath):
             # 產生檔案的絕對路徑
-            fullpath = join(mypath, f)
+            fullpath = join(filePath, f)
             # 判斷 fullpath 是檔案還是目錄
             if isfile(fullpath):
-                log = open(fullpath, "r")
-                for line in log:
+                lines = open(fullpath, "r")
+                for line in [line for line in lines if (line != None)]:
                     print(line)
             elif isdir(fullpath):
                 print("目錄：", f)      

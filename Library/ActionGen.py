@@ -27,5 +27,5 @@ class ActionGen:
             self.File.Save(self.GenEnum.fileName,self.GenEnum.content)   
             print(self.GenEnum.content)   
         #  查看產生的DotNetClass
-        self.File.showFilesContent()
+        self.File.showFilesContent(self.Gen.classDir)
  
