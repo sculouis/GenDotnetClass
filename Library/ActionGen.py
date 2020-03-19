@@ -27,7 +27,6 @@ class ActionGen:
             # 產生Enum
             self.GenEnum.GenEnumCSFile(rows)
             self.File.Save(self.GenEnum.fileName,self.GenEnum.content)   
-            print(self.GenEnum.content)   
         #  查看產生的DotNetClass
-        self.File.showFilesContent(self.Gen.classDir)
+        # self.File.showFilesContent(self.Gen.classDir)
  
