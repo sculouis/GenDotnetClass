@@ -13,6 +13,10 @@ class ActionGen:
 
     def run(self):
         """執行產生Code First Class"""
+        # 若class目錄不存在則建立
+        if (not path.exists(self.Gen.classDir)):
+            os.mkdir(self.Gen.classDir)      
+            
         sheetNames = self.Xls.getSheetNames()
         # 產生DBContent
         self.Gen.GenDBContentFile(sheetNames)   
@@ -20,9 +24,6 @@ class ActionGen:
 
         for sheetName in sheetNames:
             rows = self.Xls.GetRows(sheetName)
-            # 若class目錄不存在則建立
-            if (not path.exists(self.Gen.classDir)):
-                os.mkdir(self.Gen.classDir)      
 
             # 產生Model Class
             self.Gen.GenCSFile(sheetName,rows)   

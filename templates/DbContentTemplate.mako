@@ -7,13 +7,13 @@ namespace MyNameSpace
 
     public class MyDBContext : DbContext
     {
-        % for tableName in TableNames:
-            ${dbset(tableName)}
-        % endfor
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=MyDB.db")
         }
+        % for tableName in TableNames:
+            ${dbset(tableName)}
+        % endfor
     }
 }
 
