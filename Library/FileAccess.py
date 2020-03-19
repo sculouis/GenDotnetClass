@@ -1,11 +1,18 @@
 import os
 from os import listdir
 from os.path import isfile, isdir, join
+from os import path
+
 
 class FileAccess:
 
     def __init__(self,config):
         self.config = config
+
+    # 若class目錄不存在則建立
+    def checkPath(self,myPath):
+        if (not path.exists(myPath)):
+            os.mkdir(myPath)      
 
     def DelFile(self,fileName):            
         if os.path.exists(fileName):

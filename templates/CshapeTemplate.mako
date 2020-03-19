@@ -3,20 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
 namespace MyNameSpace
-{
-
-    public class MyDBContext : DbContext
-    {
-        public DbSet<${TableName}> Blogs { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(
-                @"Server=(localdb)\mssqllocaldb;Database=Blogging;Integrated Security=True");
-        }
-    }
-
-    
+{    
     public class ${TableName} 
     {
         % for row in mapRows:

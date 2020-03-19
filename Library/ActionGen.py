@@ -1,6 +1,3 @@
-import os
-import os.path
-from os import path
 
 class ActionGen:
     """組合各元件執行商務邏輯"""
@@ -13,10 +10,7 @@ class ActionGen:
 
     def run(self):
         """執行產生Code First Class"""
-        # 若class目錄不存在則建立
-        if (not path.exists(self.Gen.classDir)):
-            os.mkdir(self.Gen.classDir)      
-            
+        self.File.checkPath(self.Gen.classDir)    
         sheetNames = self.Xls.getSheetNames()
         # 產生DBContent
         self.Gen.GenDBContentFile(sheetNames)   
