@@ -45,3 +45,11 @@ class ReadXls:
             fields = Fields(*myList)
             mapRows.append(fields)
         return mapRows
+
+    def GetFkTableNotNone(self):
+        fkTables = []
+        for sheetName in self.getSheetNames(['Index']):
+            print(f"sheet name:{sheetName}")
+            for field in (field for field in self.GetRows(sheetName) if field.fkTable != None):
+                fkTables.append({"master":field.fkTable,"slave":sheetName})
+        return fkTables

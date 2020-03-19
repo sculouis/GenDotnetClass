@@ -61,3 +61,14 @@ class TestXls:
             #         enumDict.update( {enum[1] : enum[0]} )
             #     enumDicts.append(enumDict)
             # print(enumDicts)
+
+    @pytest.mark.skip(reason="skip this")
+    def test_getFkTableNotNone(self):
+        fkTables = []
+        for sheetName in self.xlsObj.getSheetNames(['Index']):
+            print(f"sheet name:{sheetName}")
+            fieldTitles = self.xlsObj.fieldTitle(sheetName,3)
+            for field in (field for field in self.xlsObj.GetRows(sheetName) if field.fkTable != None):
+                fkTables.append({"master":field.fkTable,"slave":sheetName})
+
+        print(fkTables)

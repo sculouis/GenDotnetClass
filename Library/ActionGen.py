@@ -12,15 +12,17 @@ class ActionGen:
         """執行產生Code First Class"""
         self.File.checkPath(self.Gen.classDir)    
         sheetNames = self.Xls.getSheetNames()
+        fkTables = self.Xls.GetFkTableNotNone()
         # 產生DBContent
         self.Gen.GenDBContentFile(sheetNames)   
         self.File.Save(self.Gen.dbContentFileName,self.Gen.dbContent)      
 
         for sheetName in sheetNames:
             rows = self.Xls.GetRows(sheetName)
+            innerTables = [fkTable for fkTable in fkTables if fkTable['master'] == sheetName]
 
             # 產生Model Class
-            self.Gen.GenCSFile(sheetName,rows)   
+            self.Gen.GenCSFile(sheetName,rows,innerTables)   
             self.File.Save(self.Gen.fileName,self.Gen.content)      
             # 產生Enum
             self.GenEnum.GenEnumCSFile(rows)
