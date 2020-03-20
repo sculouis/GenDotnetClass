@@ -12,7 +12,7 @@ class TestGen:
             "tempFileName": "CshapeTemplate.mako",
             "dbTempFileName":"DbContentTemplate.mako",
             "tempEnumFileName": "EnumTemplate.mako",
-            "classDir":"CsClass"            
+            "classDir":"/Users/louischen/WorkSpace/MyProject/DataAccess"            
         })
         action = Action.action()
         action.run()  

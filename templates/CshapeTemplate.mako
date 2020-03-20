@@ -1,9 +1,7 @@
-using System;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-
-namespace MyNameSpace
-{    
+<%namespace file="UsingTemplate.mako" import="*"/>\
+${using()} 
+namespace DataAccess
+{
     public class ${TableName} 
     {
         % for row in mapRows:
@@ -11,14 +9,17 @@ namespace MyNameSpace
         /// ${row.localFieldName} 
         /// </summary> 
         % if (row.type == 'varchar') or (row.type == 'nvarchar'):
-        [Column(TypeName="${row.type}")] 
-        [MaxLength(${row.length})]
+        [Column(TypeName="${row.type}(${row.length})")] 
         public string ${row.fieldName} { get; set; }
         % elif row.type == 'bit':
         public bool ${row.fieldName} { get; set; }
         % elif row.type == 'decimal':
-        [Column(TypeName="decimal(${row.length})")] 
+        [Column(TypeName = "decimal(${row.length})")] 
         public decimal ${row.fieldName} { get; set; }
+        % elif row.type == 'bigInt':
+        public Int64 ${row.fieldName} { get; set; }
+        % elif row.type == 'datetime':
+        public DateTime ${row.fieldName} { get; set; }
         % else:
         public ${row.type} ${row.fieldName} { get; set; }
         % endif
