@@ -2,7 +2,7 @@ import os
 from os import listdir
 from os.path import isfile, isdir, join
 from os import path
-
+import yaml
 
 class FileAccess:
 
@@ -36,8 +36,8 @@ class FileAccess:
                 for line in [line for line in lines if (line != None)]:
                     print(line)
             elif isdir(fullpath):
-                print("目錄：", f)      
-
+                print("目錄：", f)          
+                        
 if __name__ == "__main__":
     readFile = FileAccess()
     readFile.test_showDetail()

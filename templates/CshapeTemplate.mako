@@ -7,7 +7,18 @@ namespace DataAccess
         % for row in mapRows:
         /// <summary> 
         /// ${row.localFieldName} 
-        /// </summary> 
+        /// </summary> \
+        ${fieldDefine(row)}
+        % endfor
+        % for innerTable in innerTables:
+        public List<${innerTable['slave']}> ${innerTable['slave']} {get;set;}    
+        % endfor
+    }
+
+
+}
+
+<%def name="fieldDefine(row)" buffered="True">
         % if (row.type == 'varchar') or (row.type == 'nvarchar'):
         [Column(TypeName="${row.type}(${row.length})")] 
         public string ${row.fieldName} { get; set; }
@@ -26,12 +37,4 @@ namespace DataAccess
         % if row.fkTable != None:
         public ${row.fkTable} ${row.fkTable} {get;set;}    
         % endif
-
-        % endfor
-        % for innerTable in innerTables:
-        public List<${innerTable['slave']}> ${innerTable['slave']} {get;set;}    
-        % endfor
-    }
-
-
-}
+</%def>
