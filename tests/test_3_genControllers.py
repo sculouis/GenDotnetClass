@@ -9,7 +9,7 @@ class TestGen:
         Configs.config.override(data)
 
     # @pytest.mark.skip(reason="skip this")
-    def test_genClass(self):
+    def test_genControllers(self):
         action = Action.action()
-        action.genClass()
+        action.genControllers()
 
