@@ -8,3 +8,5 @@ script:
   - pwd
   - ls -al CsClass/
   - find CsClass/ -type f -exec cat {} +
+  - ls -al Controllers/
+  - find Controllers/ -type f -exec cat {} +
