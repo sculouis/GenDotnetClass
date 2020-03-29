@@ -1,12 +1,14 @@
 
 class ActionGen:
     """組合各元件執行商務邏輯"""
-    def __init__(self,Xls,Gen,GenEnum,GenControllers,FileAccess):
+    def __init__(self,Xls,Gen,GenEnum,GenControllers,GenInterface,GenRepository,FileAccess):
         """設定template的目錄"""
         self.Xls=Xls
         self.Gen=Gen
         self.GenEnum=GenEnum
         self.GenControllers=GenControllers
+        self.GenInterface=GenInterface
+        self.GenRepository=GenRepository
         self.File = FileAccess
 
     def genClass(self):
@@ -40,3 +42,22 @@ class ActionGen:
             # 產生Asp.net Core Controllers
             self.GenControllers.GenControllersFile(sheetName,rows)   
             self.File.Save(self.GenControllers.fileName,self.GenControllers.content)      
+
+    def genInterface(self):
+        """執行產生Asp.net Core Interface"""
+        self.File.checkPath(self.GenInterface.interfaceDir)    
+        sheetNames = self.Xls.getSheetNames()
+        for sheetName in sheetNames:
+            # 產生Asp.net Core Interface
+            self.GenInterface.GenInterfaceFile(sheetName)   
+            self.File.Save(self.GenInterface.fileName,self.GenInterface.content)      
+
+    def genRepository(self):
+        """執行產生Asp.net Core Repository"""
+        self.File.checkPath(self.GenRepository.repositoryDir)    
+        sheetNames = self.Xls.getSheetNames()
+        for sheetName in sheetNames:
+            # 產生Asp.net Core Repository
+            self.GenRepository.GenRepositoryFile(sheetName)   
+            self.File.Save(self.GenRepository.fileName,self.GenRepository.content)      
+        

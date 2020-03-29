@@ -4,9 +4,13 @@ namespace DataAccess
 {
     public class MyDBContext : DbContext
     {
+        public MyDBContext(DbContextOptions<MyDBContext> options): base(options){
+
+        }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=MyDB.db");
+            optionsBuilder.UseSqlServer("Server=localhost;Database=MyProject;Persist Security Info = True;User ID=SA;Password=<YourStrong@Passw0rd>");
         }
         % for tableName in TableNames:
             ${dbset(tableName)}

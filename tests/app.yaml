@@ -4,5 +4,9 @@ tempFileName: CshapeTemplate.mako
 tempControllersFileName: ControllersTemplate.mako
 dbTempFileName: DbContentTemplate.mako
 tempEnumFileName: EnumTemplate.mako
+tempInterfaceFileName: InterfaceTemplate.mako
+tempRepositoryFileName: RepositoryTemplate.mako
 classDir: CsClass
 controllersDir: Controllers
+interfaceDir: Interfaces
+repositoryDir: Repository 
