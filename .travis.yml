@@ -10,3 +10,8 @@ script:
   - find CsClass/ -type f -exec cat {} +
   - ls -al Controllers/
   - find Controllers/ -type f -exec cat {} +
+  - ls -al Interfaces/
+  - find Interfaces/ -type f -exec cat {} +
+  - ls -al Repository/
+  - find Repository/ -type f -exec cat {} +
+
