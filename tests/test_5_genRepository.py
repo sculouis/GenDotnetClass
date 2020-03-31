@@ -13,3 +13,6 @@ class TestGen:
         action = Action.action()
         action.genRepository()
 
+    def test_genericRepository(self):
+        action = Action.action()
+        action.genericRepository()

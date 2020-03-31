@@ -11,6 +11,82 @@ class ActionGen:
         self.GenRepository=GenRepository
         self.File = FileAccess
 
+    def genGenericInterface(self):
+        generic = """ 
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace DataAccess.Interfaces
+{
+    public interface IGenericRepository<TEntity>
+        where TEntity : class
+    {
+        IQueryable<TEntity> GetAll();
+        Task<TEntity> GetById(int id);
+        Task Create(TEntity entity);
+        Task Update(int id, TEntity entity);
+        Task Delete(int id);
+    }
+}
+    """    
+        self.File.checkPath(self.GenInterface.interfaceDir)    
+        self.File.Save('Interfaces/IGenericRepository.cs',generic)      
+
+    def genericRepository(self):
+        repo = """
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+
+namespace DataAccess.Repository
+{
+    public class GenericRepository<TEntity> : IGenericRepository<TEntity>
+        where TEntity : class, IEntity
+    {
+        private readonly CodingBlastDbContext _dbContext;
+
+        public GenericRepository(CodingBlastDbContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public IQueryable<TEntity> GetAll()
+        {
+            return _dbContext.Set<TEntity>().AsNoTracking();
+        }
+
+        public async Task<TEntity> GetById(int id)
+        {
+            return await _dbContext.Set<TEntity>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task Create(TEntity entity)
+        {
+            await _dbContext.Set<TEntity>().AddAsync(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task Update(int id, TEntity entity)
+        {
+            _dbContext.Set<TEntity>().Update(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var entity = await _dbContext.Set<TEntity>().FindAsync(id);
+            _dbContext.Set<TEntity>().Remove(entity);
+            await _dbContext.SaveChangesAsync();
+        }
+    }
+}
+        """  
+        self.File.checkPath(self.GenRepository.repositoryDir)    
+        self.File.Save('Repository/GenericRepository.cs',repo)      
+
     def genClass(self):
         """執行產生Code First Class"""
         self.File.checkPath(self.Gen.classDir)    

@@ -9,7 +9,10 @@ class TestGen:
         Configs.config.override(data)
 
     # @pytest.mark.skip(reason="skip this")
-    def test_genInterface(self):
+    def test_2_genInterface(self):
         action = Action.action()
         action.genInterface()
 
+    def test_3_genericinterface(self):
+        action = Action.action()
+        action.genGenericInterface()
