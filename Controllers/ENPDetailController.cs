@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
  
 
-namespace MyProjectApi.Controllers
+namespace MyWeb.Controllers
 {
     [Route("api/[controller]")]
     public class ENPDetailController : ControllerBase

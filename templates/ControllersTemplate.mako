@@ -3,7 +3,7 @@ ${using()}
 <%
     tableName = '_' + TableName
 %>
-namespace MyProjectApi.Controllers
+namespace MyWeb.Controllers
 {
     [Route("api/[controller]")]
     public class ${TableName}Controller : ControllerBase

@@ -75,20 +75,36 @@ class ShellContainer:
         # Source path  
         src = f'{mainPath}/CodeGen/GenDotnetClass/Models'
         # Destination path  
-        dest = f'{mainPath}/DataAccess/Models'
+        dest = f'{mainPath}/MyWebProject/DataAccess/Models'
         self.CopyFolder(mainPath,src,dest)
 
         # Source path  
         src = f'{mainPath}/CodeGen/GenDotnetClass/Interfaces'
         # Destination path  
-        dest = f'{mainPath}/DataAccess/Interfaces'
+        dest = f'{mainPath}/MyWebProject/DataAccess/Interfaces'
         self.CopyFolder(mainPath,src,dest)
 
         # Source path  
         src = f'{mainPath}/CodeGen/GenDotnetClass/Repository'
         # Destination path  
-        dest = f'{mainPath}/DataAccess/Repository'
+        dest = f'{mainPath}/MyWebProject/DataAccess/Repository'
         self.CopyFolder(mainPath,src,dest)
+
+    def copytree(self, src, dst, symlinks=False, ignore=None):
+        for item in os.listdir(src):
+            s = os.path.join(src, item)
+            d = os.path.join(dst, item)
+            if os.path.isdir(s):
+                shutil.copytree(s, d, symlinks, ignore)
+            else:
+                shutil.copy2(s, d)
+
+    def PrepareMvcProject(self,mainPath):
+        # Source path  
+        src = f'{mainPath}/CodeGen/GenDotnetClass/Controllers'
+        # Destination path  
+        dest = f'{mainPath}/MyWebProject/MyWeb/Controllers'
+        self.copytree(src,dest)
 
     def GenClassLibProject(self,mainPath,projectName): 
         self.NewProject(mainPath,projectName,ProjectKind.CLASSLIB)
@@ -96,3 +112,24 @@ class ShellContainer:
         version = "3.1.3"
         projectName = "DataAccess"
         self.AddPackage(f'{mainPath}/{projectName}',Package.ADD,packageName,version)
+
+    def GenWebMVCProject(self,mainPath,projectName): 
+        self.NewProject(mainPath,projectName,ProjectKind.MVC)
+        # packageName = "Microsoft.EntityFrameworkCore.SqlServer"
+        # version = "3.1.3"
+        # projectName = "DataAccess"
+        # self.AddPackage(f'{mainPath}/{projectName}',Package.ADD,packageName,version)
+
+    def CreateSln(self,mainPath):
+        chdir(mainPath)
+        arg = ['dotnet',Command.ADD.value,'MyWeb/MyWeb.csproj','reference','DataAccess/DataAccess.csproj']
+        self.ShellCmd(arg)
+
+        arg = ['dotnet',Command.NEW.value,ProjectKind.SLN.value]
+        self.ShellCmd(arg)
+
+        arg = ['dotnet',ProjectKind.SLN.value, Command.ADD.value, 'DataAccess/DataAccess.csproj'] 
+        self.ShellCmd(arg)
+
+        arg = ['dotnet',ProjectKind.SLN.value, Command.ADD.value, 'MyWeb/MyWeb.csproj'] 
+        self.ShellCmd(arg)
