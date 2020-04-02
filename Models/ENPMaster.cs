@@ -1,9 +1,6 @@
- 
 using System;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
- 
 namespace DataAccess
 {
     public class ENPMaster 

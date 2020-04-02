@@ -1,5 +1,4 @@
-<%namespace file="UsingTemplate.mako" import="*"/>
-${using()}
+using Microsoft.EntityFrameworkCore;
 namespace DataAccess
 {
     public class MyDBContext : DbContext

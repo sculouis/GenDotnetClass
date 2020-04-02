@@ -1,5 +1,5 @@
 <%namespace file="UsingTemplate.mako" import="*"/>\
-${using()} 
+${using()}\
 namespace DataAccess
 {
     public class ${TableName} 

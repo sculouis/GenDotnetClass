@@ -12,4 +12,3 @@ class TestGen:
     def test_genClass(self):
         action = Action.action()
         action.genClass()
-
