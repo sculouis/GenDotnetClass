@@ -6,7 +6,7 @@ dbTempFileName: DbContentTemplate.mako
 tempEnumFileName: EnumTemplate.mako
 tempInterfaceFileName: InterfaceTemplate.mako
 tempRepositoryFileName: RepositoryTemplate.mako
-classDir: CsClass
+classDir: Models
 controllersDir: Controllers
 interfaceDir: Interfaces
 repositoryDir: Repository 

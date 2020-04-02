@@ -2,16 +2,17 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccess.Repository
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
     {
-        private readonly CodingBlastDbContext _dbContext;
+        private readonly MyDBContext _dbContext;
 
-        public GenericRepository(CodingBlastDbContext dbContext)
+        public GenericRepository(MyDBContext dbContext)
         {
             _dbContext = dbContext;
         }
@@ -23,9 +24,7 @@ namespace DataAccess.Repository
 
         public async Task<TEntity> GetById(int id)
         {
-            return await _dbContext.Set<TEntity>()
-                .AsNoTracking()
-                .FirstOrDefaultAsync(e => e.Id == id);
+            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
         public async Task Create(TEntity entity)

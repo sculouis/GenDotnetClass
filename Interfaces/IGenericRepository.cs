@@ -1,7 +1,6 @@
  
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace DataAccess.Interfaces
 {
     public interface IGenericRepository<TEntity>

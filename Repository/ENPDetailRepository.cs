@@ -1,5 +1,6 @@
 using System.Linq;
 using DataAccess.Interfaces;
+using DataAccess.Repository;
 
 namespace DataAccess
 {
@@ -9,7 +10,6 @@ namespace DataAccess
         {
         }
 
-        IQueryable<ENPDetail> IENPDetailRepository.GetFormMasterAll() =>
-            GetAll().OrderByDescending(e => e.Id);
+        IQueryable<ENPDetail> IENPDetailRepository.GetENPDetailAll() => GetAll().OrderByDescending(e => e.Id);
     }
 }
