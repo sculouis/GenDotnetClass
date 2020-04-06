@@ -6,8 +6,8 @@ install:
 script:
   - pytest -v -s
   - pwd
-  - ls -al CsClass/
-  - find CsClass/ -type f -exec cat {} +
+  - ls -al Models/
+  - find Models/ -type f -exec cat {} +
   - ls -al Controllers/
   - find Controllers/ -type f -exec cat {} +
   - ls -al Interfaces/
